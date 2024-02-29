@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-
-function Player({ initialName, symbol , isActive}) {
+function Player({ initialName, symbol, isActive, onChangeName }) {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(initialName);
   // its recommneded in react whenever we want to  update any state using its previos state value then you are not allwed to do it directly like below
@@ -19,6 +18,9 @@ function Player({ initialName, symbol , isActive}) {
   //this function will automatically called by react and will recieve the guarenteed state value
   function handleEditClick() {
     setIsEditing((editing) => !editing);
+    if (isEditing) {
+      onChangeName(symbol, playerName);
+    }
   }
   function handleChange(event) {
     console.log(event);
@@ -38,7 +40,7 @@ function Player({ initialName, symbol , isActive}) {
     // buttonCaption = "Save";
   }
   return (
-    <li className={isActive ? 'active' : undefined}>
+    <li className={isActive ? "active" : undefined}>
       <span className="player highlight-player">
         {editablePlayerName}
         <span className="player-symbol">{symbol}</span>
